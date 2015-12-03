@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 align="center">Users</h1>
+    <br>
+    <div id="users-form" class="row">
+      <div class="col-sm-8 col-sm-offset-2 text-center">
+        <form ng-submit="ctrl.add()">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg text-center" placeholder="New user" ng-model="crtl.addForm.name">
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-lg" value="Add">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+      <div class="checkbox" ng-repeat="user in ctrl.users">
+        <label>
+          <input type="checkbox" ng-click="ctrl.delete(user._id)">
+          {{ user.name }}
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

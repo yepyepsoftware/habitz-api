@@ -1,0 +1,11 @@
+{
+    "name": "habitz",
+    "main": "server.js",
+    "dependencies": {
+        "express": "~4.0.0",
+        "mongoose": "~3.6.13",
+        "mongoose-timestamp": "*",
+        "body-parser": "~1.0.1",
+        "method-override" : "~2.0.2"
+    }
+}

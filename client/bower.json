@@ -1,0 +1,20 @@
+{
+  "name": "habitz",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "angular"
+  ],
+  "dependencies": {
+    "angular-route": "~1.4.8",
+    "angular": "~1.4.8",
+    "angular-ui": "latest",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "font-awesome": "4.5.0",
+    "animate.css": "latest"
+  }
+}

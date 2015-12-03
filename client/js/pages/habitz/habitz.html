@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1 align="center">HabitzApp</h1>
+    <br>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2 text-center">
+        <form ng-submit="ctrl.add()">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg text-center" placeholder="New habit" ng-model="ctrl.newData.value">
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-lg" value="Add">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+      <ul>
+        <li ng-repeat="habit in ctrl.habitz">
+          {{habit.value}}
+          <button class="btn btn-default btn-xs" ng-click="ctrl.delete(habit)"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-default btn-xs" ng-click="ctrl.select(habit)" data-toggle="modal" data-target="#habitModal"><i class="fa fa-cogs"></i></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<form ng-submit="ctrl.update()">
+  <div id="habitModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+          <h4 class="modal-title">SHOW HABIT</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg text-center" ng-model="ctrl.editData.value">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
