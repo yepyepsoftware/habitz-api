@@ -49,7 +49,6 @@ router.route('/habitz/:id')
   })
 
   // DELETE
-  //TODO: Does not work yet, no time to fix!
   .delete((req, res) => {
     HabitzService.delete(req.params.id)
       .then(() =>
@@ -58,6 +57,5 @@ router.route('/habitz/:id')
         res.sendStatus(404)
     )
 });
-
 
 module.exports = router;
