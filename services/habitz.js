@@ -22,7 +22,6 @@ class HabitzService{
 		get(id)
 			.then((habitz) => {
 				if (!habitz) {
-					console.log('Not found ' + habitz)
 					deferred.reject();
 				}
 				setParams(habitz, params).save()	
@@ -40,18 +39,24 @@ class HabitzService{
 	}
 	
 	static delete(id) {
-		var defer = Q.defer();
+		var deferred = Q.defer();
 		get(id)
-			.then((habitz) =>
-				habitz.delete()
+			.then((habitz) => {
+				if (!habitz) {
+					deferred.reject();
+				}
+				habitz.remove()
 					.then(() =>
-						defer.resolve()
-					,(err) =>
-					defer.reject(err)
-				)
-			,(err) =>
-				defer.reject(err)
-		)
+						deferred.resolve()
+					, (err) =>
+						deferred.reject(err)
+					)
+			}
+			, (err) =>
+				deferred.reject(err)
+			)
+		
+		return deferred.promise
 	}
 	
 }

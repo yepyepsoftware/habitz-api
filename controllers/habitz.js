@@ -50,7 +50,7 @@ router.route('/habitz/:id')
 
   // DELETE
   //TODO: Does not work yet, no time to fix!
-  .delete(function (req, res) {
+  .delete((req, res) => {
     HabitzService.delete(req.params.id)
       .then(() =>
         res.sendStatus(200) 
