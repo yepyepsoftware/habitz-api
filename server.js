@@ -58,7 +58,7 @@ router.get('/', function(req, res) {
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
-app.use('/api', require('./routes/users.js'));
+app.use('/api', require('./controllers/user'));
 app.use('/api', require('./controllers/habitz'));
 
 

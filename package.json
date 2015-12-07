@@ -4,7 +4,6 @@
   "dependencies": {
     "express": "^4.13.3",
     "mongoose":"^4.2.6",
-    "mongoose-timestamp": "*",
     "body-parser": "~1.0.1",
     "method-override": "~2.0.2"
   },
