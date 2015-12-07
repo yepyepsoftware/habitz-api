@@ -12,7 +12,13 @@ var mongoose        = require('mongoose');
 
 
 // configure database
+//Connect to database
 mongoose.connect('mongodb://localhost/habitz');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+  console.log('Connected to database')
+});
 
 // get all data of the body (POST) parameters
 // parse application/json
@@ -53,7 +59,7 @@ router.get('/', function(req, res) {
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 app.use('/api', require('./routes/users.js'));
-app.use('/api', require('./routes/habitz.js'));
+app.use('/api', require('./controllers/habitz'));
 
 
 
