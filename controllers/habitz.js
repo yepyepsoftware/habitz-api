@@ -7,17 +7,17 @@ router.route('/habitz')
   // List
   .get((req, res) => 
     HabitzService.list()
-      .then((habitzArray) => 
-        res.json(habitzArray)
+      .then( list => 
+        res.json(list)
       )
   )
 
   // Create
   .post((req, res) => 
     HabitzService.create(req.body)
-      .then((habitz) => 
+      .then( habitz => 
         res.json(habitz)
-      , (err) => 
+      , err => 
         res.sendStatus(422) 
       )
   )
@@ -27,13 +27,13 @@ router.route('/habitz/:id')
   // Show
   .get((req, res) => 
     HabitzService.show(req.params.id)
-      .then((habitz) => { 
+      .then( habitz => { 
         if (!habitz) {
             res.sendStatus(404)
           }
           res.json(habitz)
         }
-      , (err) =>
+      , err =>
         res.sendStatus(400)
     )
   )
@@ -41,9 +41,9 @@ router.route('/habitz/:id')
   // Update
   .put((req, res) => 
     HabitzService.update(req.params.id, req.body)
-      .then((habitz) =>
+      .then(habitz =>
         res.json(habitz)
-      , (err) =>
+      , err =>
         res.sendStatus(404)
     )
   )
@@ -53,7 +53,7 @@ router.route('/habitz/:id')
     HabitzService.delete(req.params.id)
       .then(() =>
         res.sendStatus(200) 
-      , (err) =>
+      , err =>
         res.sendStatus(404)
     )
   );

@@ -21,19 +21,19 @@ class UserService{
   static update(id, params) {
     var deferred = Q.defer();
 		get(id)
-			.then((user) => {
+			.then(user => {
 				if (!user) {
 					deferred.reject();
 				}
 				setParams(user, params).save()	
-				.then((user) => 
+				.then( user => 
 					deferred.resolve(user)
-				, (err) => 
+				, err => 
 					deferred.reject(err)
 				)
 			}
 			
-		, (err) =>
+		, err =>
 			deferred.reject(err)
 		)
 		return deferred.promise;
@@ -42,18 +42,18 @@ class UserService{
   static delete(id) {
 		var deferred = Q.defer();
 		get(id)
-			.then((user) => {
+			.then( user => {
 				if (!user) {
 					deferred.reject();
 				}
 				user.remove()
 					.then(() =>
 						deferred.resolve()
-					, (err) =>
+					, err =>
 						deferred.reject(err)
 					)
 			}
-			, (err) =>
+			, err =>
 				deferred.reject(err)
 			)
 		
