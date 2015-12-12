@@ -20,19 +20,19 @@ class HabitzService{
 	static update(id, params) {
 		var deferred = Q.defer();
 		get(id)
-			.then((habitz) => {
+			.then( habitz => {
 				if (!habitz) {
 					deferred.reject();
 				}
 				setParams(habitz, params).save()	
-				.then((habitz) => 
+				.then( habitz => 
 					deferred.resolve(habitz)
-				, (err) => 
+				, err => 
 					deferred.reject(err)
 				)
 			}
 			
-		, (err) =>
+		, err =>
 			deferred.reject(err)
 		)
 		return deferred.promise;
@@ -41,18 +41,18 @@ class HabitzService{
 	static delete(id) {
 		var deferred = Q.defer();
 		get(id)
-			.then((habitz) => {
+			.then( habitz => {
 				if (!habitz) {
 					deferred.reject();
 				}
 				habitz.remove()
 					.then(() =>
 						deferred.resolve()
-					, (err) =>
+					, err =>
 						deferred.reject(err)
 					)
 			}
-			, (err) =>
+			, err =>
 				deferred.reject(err)
 			)
 		

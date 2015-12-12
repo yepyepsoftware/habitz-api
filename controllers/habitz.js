@@ -5,57 +5,57 @@ var HabitzService = require('../services/habitz');
 router.route('/habitz')
 
   // List
-  .get((req, res) => {
+  .get((req, res) => 
     HabitzService.list()
-      .then((habitzArray) => 
-        res.json(habitzArray)
+      .then( list => 
+        res.json(list)
       )
-  })
+  )
 
   // Create
-  .post((req, res) => {
+  .post((req, res) => 
     HabitzService.create(req.body)
-      .then((habitz) => 
+      .then( habitz => 
         res.json(habitz)
-      , (err) => 
+      , err => 
         res.sendStatus(422) 
       )
-  })
+  )
   
 router.route('/habitz/:id')
 
   // Show
-  .get((req, res) => {
+  .get((req, res) => 
     HabitzService.show(req.params.id)
-      .then((habitz) => { 
+      .then( habitz => { 
         if (!habitz) {
             res.sendStatus(404)
           }
           res.json(habitz)
         }
-      , (err) =>
+      , err =>
         res.sendStatus(400)
     )
-  })
+  )
   
   // Update
-  .put((req, res) => {
+  .put((req, res) => 
     HabitzService.update(req.params.id, req.body)
-      .then((habitz) =>
+      .then(habitz =>
         res.json(habitz)
-      , (err) =>
+      , err =>
         res.sendStatus(404)
     )
-  })
+  )
 
   // DELETE
-  .delete((req, res) => {
+  .delete((req, res) => 
     HabitzService.delete(req.params.id)
       .then(() =>
         res.sendStatus(200) 
-      , (err) =>
+      , err =>
         res.sendStatus(404)
     )
-});
+  );
 
 module.exports = router;
