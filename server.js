@@ -59,10 +59,18 @@ router.get('/', function(req, res) {
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 app.use('/api', require('./controllers/user'));
-app.use('/api', require('./controllers/habitz'));
+app.use('/api', require('./controllers/habit'));
 
 
 
+
+var Habits = require('./models/habit');
+var Users = require('./models/user');
+
+var h = new Habits;
+
+h.value = "No alcohol in decades";
+h.save();
 
 
 // START THE SERVER
