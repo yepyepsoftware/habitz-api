@@ -9,7 +9,9 @@ var app             = express();                 // define our app using express
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
 var mongoose        = require('mongoose');
-var utilities       = require('./utilities')
+var utilities       = require('./utilities');
+
+require('./utilities/db');
 
 // configure database
 //Connect to database
@@ -60,17 +62,6 @@ router.get('/', function(req, res) {
 app.use('/api', router);
 app.use('/api', require('./controllers/user'));
 app.use('/api', require('./controllers/habit'));
-
-
-
-
-var Habits = require('./models/habit');
-var Users = require('./models/user');
-
-var h = new Habits;
-
-h.value = "No alcohol in decades";
-h.save();
 
 
 // START THE SERVER

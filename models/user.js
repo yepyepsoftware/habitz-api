@@ -9,10 +9,12 @@ var UsersSchema = new Schema({
     email: String,
     tags: [String],
     yepd: [{
-        timestamp: String, habit: {type: ObjectId, ref: Habits}
+        timestamp: {type: Date, default: Date.now},
+        habit: {type: ObjectId, ref: Habits}
     }],
     noped: [{
-        timestamp: String, habit: {type: ObjectId, ref: Habits}
+        timestamp: {type: Date, default: Date.now},
+        habit: {type: ObjectId, ref: Habits}
     }]
 }, {timestamps: true});
 
