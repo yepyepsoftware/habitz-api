@@ -4,10 +4,10 @@ var router = require('express').Router();
 var User  = require('../models/user');
 var Q = require('q');
 
-class UserService{
+class UserService {
   
   static list() {
-    return User.find().exec();
+    return User.find();
   }
   
   static create(params) {
@@ -15,12 +15,12 @@ class UserService{
   }
   
   static show(id) {
-    return get(id);
+    return User.findById(id);
   }
   
   static update(id, params) {
     var deferred = Q.defer();
-		get(id)
+		User.findById(id)
 			.then(user => {
 				if (!user) {
 					deferred.reject();
@@ -41,7 +41,7 @@ class UserService{
   
   static delete(id) {
 		var deferred = Q.defer();
-		get(id)
+		User.findById(id)
 			.then( user => {
 				if (!user) {
 					deferred.reject();
@@ -69,12 +69,21 @@ module.exports = UserService;
  **/
 
 function setParams(user, params) {
-  user.name = params.name
-  return user;
+  	user.email = params.email || user.email;
+	
+	if (params.yepd) {
+		user.yepd.push({
+			time: new Date(),
+			habit: params.yepd
+		});
+	}
+	
+	if (params.noped) {
+		user.noped.push({
+			time: new Date(),
+			habit: params.noped
+		});
+	}
+	
+  	return user;
 }
-
-function get(id) {
-  return User.findById(id);
-}
-
-

@@ -11,8 +11,6 @@ var methodOverride  = require('method-override');
 var mongoose        = require('mongoose');
 var utilities       = require('./utilities');
 
-require('./utilities/db');
-
 // configure database
 //Connect to database
 mongoose.connect('mongodb://localhost/habitz');
@@ -21,6 +19,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
   console.log('Connected to database')
 });
+
+require('./utilities/db');
 
 // get all data of the body (POST) parameters
 // parse application/json
