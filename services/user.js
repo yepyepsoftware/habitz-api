@@ -15,12 +15,12 @@ class UserService {
   }
   
   static show(id) {
-    return User.findById(id);
+    return get(id);
   }
   
   static update(id, params) {
     var deferred = Q.defer();
-		User.findById(id)
+		get(id)
 			.then(user => {
 				if (!user) {
 					deferred.reject();
@@ -41,7 +41,7 @@ class UserService {
   
   static delete(id) {
 		var deferred = Q.defer();
-		User.findById(id)
+		get(id)
 			.then( user => {
 				if (!user) {
 					deferred.reject();
@@ -86,4 +86,8 @@ function setParams(user, params) {
 	}
 	
   	return user;
+}
+
+function get(id) {
+	return User.findById(id);
 }

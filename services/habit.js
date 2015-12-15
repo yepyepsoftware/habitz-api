@@ -10,7 +10,7 @@ class HabitService{
 	}
 	
 	static show(id) {
-		return Habit.findById(id);
+		return get(id);
 	}
 	
 	static create(params) {
@@ -19,7 +19,7 @@ class HabitService{
 	
 	static update(id, params) {
 		var deferred = Q.defer();
-		Habit.findById(id).then((habit) => {
+		get(id).then((habit) => {
 			if (!habit) {
 				deferred.reject();
 			}
@@ -37,7 +37,7 @@ class HabitService{
 	
 	static delete(id) {
 		var deferred = Q.defer();
-		Habit.findById(id).then((habit) => {
+		get(id).then((habit) => {
 			if (!habit) {
 				deferred.reject();
 			}
@@ -63,4 +63,8 @@ module.exports = HabitService;
 function setParams(habit, params) {
 	habit.value = params.value;
 	return habit
+}
+
+function get(id) {
+	return Habit.findById(id);
 }
