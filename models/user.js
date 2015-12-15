@@ -1,10 +1,20 @@
 // models/users.js
 
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var mongoose = require('mongoose');
+var Habits = require('./habit');
+var Schema = mongoose.Schema;
 
 var UsersSchema = new Schema({
-    name: String
+    email: String,
+    tags: [String],
+    yepd: [{
+        time: {type: Date, default: Date.now},
+        habit: {type: Schema.Types.ObjectId, ref: Habits}
+    }],
+    noped: [{
+        time: {type: Date, default: Date.now},
+        habit: {type: Schema.Types.ObjectId, ref: Habits}
+    }]
 }, {timestamps: true});
 
 
