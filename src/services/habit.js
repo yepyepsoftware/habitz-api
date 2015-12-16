@@ -1,6 +1,7 @@
 'use strict';
 
 var Habit = require('../models/habit');
+var http = require('http');
 var Q = require('q');
 
 class HabitService{
@@ -8,33 +9,33 @@ class HabitService{
 	static list() {
 		return Habit.find();
 	}
-	
+
 	static show(id) {
 		return get(id);
 	}
-	
+
 	static create(params) {
 		return setParams(new Habit(), params).save();
 	}
-	
+
 	static update(id, params) {
 		var deferred = Q.defer();
 		get(id).then((habit) => {
 			if (!habit) {
 				deferred.reject();
 			}
-			setParams(habit, params).save().then((habit) => { 
+			setParams(habit, params).save().then((habit) => {
 				deferred.resolve(habit)
-			}, (err) => { 
+			}, (err) => {
 				deferred.reject(err)
 			})
 		}, (err) => {
 			deferred.reject(err)
 		})
-		
+
 		return deferred.promise;
 	}
-	
+
 	static delete(id) {
 		var deferred = Q.defer();
 		get(id).then((habit) => {
@@ -49,10 +50,26 @@ class HabitService{
 		}, (err) => {
 			deferred.reject(err)
 		})
-		
+
 		return deferred.promise
 	}
-	
+
+	// Mock random
+	static random() {
+		var deferred = Q.defer();
+		http.get("http://api.icndb.com/jokes/random/", (res) => {
+			res.on('data', (data) => {
+				var temp = JSON.parse(data);
+				console.log(temp)
+
+				deferred.resolve({value: temp.value.joke})
+			});
+		}).on('error', (err) => {
+			deferred.reject(err)
+		});
+		return deferred.promise;
+	}
+
 }
 
 module.exports = HabitService;
