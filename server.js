@@ -9,7 +9,7 @@ var app             = express();                 // define our app using express
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
 var mongoose        = require('mongoose');
-var utilities       = require('./utilities')
+var utilities       = require('./utilities');
 
 // configure database
 //Connect to database
@@ -19,6 +19,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
   console.log('Connected to database')
 });
+
+require('./utilities/db');
 
 // get all data of the body (POST) parameters
 // parse application/json
@@ -58,10 +60,7 @@ router.get('/', function(req, res) {
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 app.use('/api', require('./controllers/user'));
-app.use('/api', require('./controllers/habitz'));
-
-
-
+app.use('/api', require('./controllers/habit'));
 
 
 // START THE SERVER

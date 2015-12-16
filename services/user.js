@@ -4,10 +4,10 @@ var router = require('express').Router();
 var User  = require('../models/user');
 var Q = require('q');
 
-class UserService{
+class UserService {
   
   static list() {
-    return User.find().exec();
+    return User.find();
   }
   
   static create(params) {
@@ -69,12 +69,25 @@ module.exports = UserService;
  **/
 
 function setParams(user, params) {
-  user.name = params.name
-  return user;
+  	user.email = params.email || user.email;
+	
+	if (params.yepd) {
+		user.yepd.push({
+			time: new Date(),
+			habit: params.yepd
+		});
+	}
+	
+	if (params.noped) {
+		user.noped.push({
+			time: new Date(),
+			habit: params.noped
+		});
+	}
+	
+  	return user;
 }
 
 function get(id) {
-  return User.findById(id);
+	return User.findById(id);
 }
-
-

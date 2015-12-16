@@ -1,37 +1,37 @@
 'use strict';
 
 var router = require('express').Router();
-var Habitz  = require('../models/habitz');
+var Habit  = require('../models/habit');
 
-router.route('/habitz')
+router.route('/habit')
 
   // GET ALL
   .get(function(req, res) {
-    Habitz.find({}, function(err, habitz) {
+    Habit.find({}, function(err, habits) {
         if (err) {
           res.send(err);
         }
-        res.json(habitz);
+        res.json(habits);
     });
   })
 
   // ADD
   .post(function(req, res) {
-    var habitz = new Habitz();
-    habitz.value = req.body.value;
+    var habit = new Habit();
+    habit.value = req.body.value;
 
-    habitz.save(function(err) {
+    habit.save(function(err) {
       if (err) {
         res.send(err);
       }
-      res.json(habitz);
+      res.json(habit);
     });
   })
 
 
   // EDIT
   .put(function(req, res) {
-    Habitz.findById(req.body._id, function(err, habit) {
+    Habit.findById(req.body._id, function(err, habit) {
       if (err) {
         res.send(err);
       }
@@ -47,43 +47,43 @@ router.route('/habitz')
     });
   })
 
-router.route('/habitz/:habitzId')
+router.route('/habit/:habitId')
 
   // GET ONE
   .get(function(req, res) {
-    Habitz.findById(req.params.habitzId, function(err, habitz) {
+    Habit.findById(req.params.habitId, function(err, habit) {
         if (err) {
           res.send(err);
         }
-        res.json(habitz);
+        res.json(habit);
     });
   })
 
   // EDIT
   .post(function(req, res) {
     console.log(req.params);
-    Habitz.findById(req.params.habitzId, function(err, habitz) {
+    Habit.findById(req.params.habitId, function(err, habit) {
       if (err) {
           res.send(err);
       }
       console.log(req.body);
-      habitz.value = req.body.value;
-      habitz.save(function(err) {
+      habit.value = req.body.value;
+      habit.save(function(err) {
         if (err) {
             res.send(err);
         }
-        res.json(habitz);
+        res.json(habit);
       });
     });
   })
 
   // DELETE
   .delete(function(req, res) {
-    Habitz.remove({_id: req.params.habitzId}, function(err, habitz) {
+    Habit.remove({_id: req.params.habitId}, function(err, habit) {
       if (err) {
         res.send(err);
       }
-      res.json(habitz);
+      res.json(habit);
     });
 });
 
