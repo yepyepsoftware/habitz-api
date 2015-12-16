@@ -35,12 +35,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-// set the static files location /client/img will be /img for users
-app.use(express.static(__dirname + '/client'));
-
-
-
-
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -50,10 +44,6 @@ var router = express.Router();              // get an instance of the express Ro
 router.use(function(req, res, next) {
     // do logging
     next(); // make sure we go to the next routes and don't stop here
-});
-
-router.get('/', function(req, res) {
-    res.sendFile('./client/index.html')
 });
 
 
