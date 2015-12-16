@@ -54,15 +54,15 @@ class HabitService{
 		return deferred.promise
 	}
 
-	// Mock random
+	// Mock random. Gets random Chuck norris joke and creates habit and returns it.
+	// Maybe use this after we get proper data? https://www.npmjs.com/package/mongoose-simple-random
+	// There was also: https://jira.mongodb.org/browse/SERVER-533
 	static random() {
 		var deferred = Q.defer();
 		http.get("http://api.icndb.com/jokes/random/", (res) => {
 			res.on('data', (data) => {
-				var temp = JSON.parse(data);
-				console.log(temp)
-
-				deferred.resolve({value: temp.value.joke})
+				var habit = this.create({value: JSON.parse(data).value.joke});
+				deferred.resolve(habit)
 			});
 		}).on('error', (err) => {
 			deferred.reject(err)
