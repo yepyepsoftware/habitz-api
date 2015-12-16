@@ -36,6 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
@@ -52,6 +53,12 @@ router.use(function(req, res, next) {
 app.use('/api', router);
 app.use('/api/user', require('./src/controllers/user'));
 app.use('/api/habit', require('./src/controllers/habit'));
+
+// Send 404 in case of invalid request.
+app.use(function(req, res) {
+  console.log("Invalid request: " + req.protocol + '://' + req.get('host') + req.originalUrl)
+  res.sendStatus(404);
+});
 
 
 // START THE SERVER
