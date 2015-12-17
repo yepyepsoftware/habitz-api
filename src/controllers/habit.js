@@ -22,7 +22,18 @@ router.route('/')
       }, (err) => {
         res.sendStatus(422)
       })
-  )
+  );
+
+router.route('/random')
+
+  .get((req, res) => {
+    HabitService.random()
+      .then((habit) => {
+        res.json(habit)
+      }, (err) => {
+        res.sendStatus(400)
+      })
+    });
 
 router.route('/:id')
 
@@ -59,5 +70,6 @@ router.route('/:id')
         res.sendStatus(404)
       })
   );
+
 
 module.exports = router;
