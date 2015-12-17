@@ -4,15 +4,17 @@
 // =============================================================================
 
 // call the packages we need
-var express         = require('express');        // call express
-var app             = express();                 // define our app using express
-var bodyParser      = require('body-parser');
-var methodOverride  = require('method-override');
-var mongoose        = require('mongoose');
-var utilities       = require('./src/utilities');
+var express           = require('express');        // call express
+var app               = express();                 // define our app using express
+var bodyParser        = require('body-parser');
+var methodOverride    = require('method-override');
+var passport          = require('passport')
+var mongoose          = require('mongoose');
+var FacebookStrategy  = require('passport-facebook').Strategy
+var config            = require('./config');
+var utilities         = require('./src/utilities');
 
-// configure database
-//Connect to database
+// Configure and connect to database
 mongoose.connect('mongodb://localhost/habitz');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -21,6 +23,24 @@ db.once('open', function (callback) {
 });
 
 require('./src/utilities/db');
+
+
+passport.use(new FacebookStrategy({
+    clientID: config.facebook_app_id,
+    clientSecret: config.facebook_app_secret,
+    callbackURL: config.facebook_callback_url
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    // User.findOrCreate(..., function(err, user) {
+    //   if (err) { return done(err); }
+    //   done(null, user);
+    // });
+  }
+));
+
+
+
 
 // get all data of the body (POST) parameters
 // parse application/json
