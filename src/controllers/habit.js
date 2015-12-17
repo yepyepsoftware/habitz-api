@@ -2,12 +2,12 @@
 var router = require('express').Router();
 var HabitService = require('../services/habit');
 
-router.route('/habit')
+router.route('/')
 
   // List
-  .get((req, res) => 
+  .get((req, res) =>
     HabitService.list()
-      .then((list) => { 
+      .then((list) => {
         res.json(list)
       }, (err) => {
         res.sendStatus(400)
@@ -15,33 +15,33 @@ router.route('/habit')
   )
 
   // Create
-  .post((req, res) => 
+  .post((req, res) =>
     HabitService.create(req.body)
-      .then((habit) => { 
+      .then((habit) => {
         res.json(habit)
       }, (err) => {
-        res.sendStatus(422) 
+        res.sendStatus(422)
       })
   )
-  
-router.route('/habit/:id')
+
+router.route('/:id')
 
   // Show
-  .get((req, res) => { 
+  .get((req, res) => {
     HabitService.show(req.params.id)
-      .then((habit) => { 
+      .then((habit) => {
         if (!habit) {
           res.sendStatus(404)
         }
         res.json(habit)
       }
-      , (err) => { 
+      , (err) => {
         res.sendStatus(400)
       })
   })
-  
+
   // Update
-  .put((req, res) => 
+  .put((req, res) =>
     HabitService.update(req.params.id, req.body)
       .then((habit) => {
         res.json(habit)
@@ -51,10 +51,10 @@ router.route('/habit/:id')
   )
 
   // DELETE
-  .delete((req, res) => 
+  .delete((req, res) =>
     HabitService.delete(req.params.id)
       .then(() => {
-        res.sendStatus(200) 
+        res.sendStatus(200)
       }, (err) => {
         res.sendStatus(404)
       })

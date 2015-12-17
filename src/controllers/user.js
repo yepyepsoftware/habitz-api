@@ -3,7 +3,7 @@
 var router = require('express').Router();
 var UserService = require('../services/user');
 
-router.route('/user')
+router.route('/')
 
 	// List
 	.get((req, res) => {
@@ -18,19 +18,19 @@ router.route('/user')
   // Create
   .post((req, res) => {
      UserService.create(req.body)
-      .then((user) => { 
+      .then((user) => {
         res.json(user)
-      }, (err) => { 
-        res.sendStatus(422) 
+      }, (err) => {
+        res.sendStatus(422)
       })
   })
 
-router.route('/user/:id')
+router.route('/:id')
 
   // Show
   .get((req, res) => {
     UserService.show(req.params.id)
-      .then((user) => { 
+      .then((user) => {
         if (!user) {
           res.sendStatus(404)
         }
@@ -39,9 +39,9 @@ router.route('/user/:id')
         res.sendStatus(400)
       })
   })
-  
+
   // Update
-  .put((req, res) => { 
+  .put((req, res) => {
     UserService.update(req.params.id, req.body)
       .then((user) => {
         res.json(user)
@@ -54,21 +54,21 @@ router.route('/user/:id')
   .delete((req, res) => {
     UserService.delete(req.params.id)
       .then(() => {
-        res.sendStatus(200) 
+        res.sendStatus(200)
       }, (err) => {
         res.sendStatus(404)
       })
   })
 
-router.route('/user/:userId/yep/:habitId')
+router.route('/:userId/yep/:habitId')
 
   // YEP
   .get((req, res) =>  {
-    
+
     var params = {
       yepd: req.params.habitId
     }
-    
+
     UserService.update(req.params.userId, params)
       .then((user) => {
         res.json(user)
@@ -77,15 +77,15 @@ router.route('/user/:userId/yep/:habitId')
       })
   })
 
-router.route('/user/:userId/nope/:habitId')
+router.route('/:userId/nope/:habitId')
 
   // NOPE
   .get((req, res) =>  {
-    
+
     var params = {
       noped: req.params.habitId
     }
-    
+
     UserService.update(req.params.userId, params)
       .then((user) => {
         res.json(user)
