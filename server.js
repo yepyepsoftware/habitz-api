@@ -10,7 +10,6 @@ var bodyParser        = require('body-parser');
 var methodOverride    = require('method-override');
 var passport          = require('passport')
 var mongoose          = require('mongoose');
-var FacebookStrategy  = require('passport-facebook').Strategy
 var config            = require('./config');
 var utilities         = require('./src/utilities');
 
@@ -25,19 +24,19 @@ db.once('open', function (callback) {
 require('./src/utilities/db');
 
 
-passport.use(new FacebookStrategy({
-    clientID: config.facebook_app_id,
-    clientSecret: config.facebook_app_secret,
-    callbackURL: config.facebook_callback_url
-  },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
-    // User.findOrCreate(..., function(err, user) {
-    //   if (err) { return done(err); }
-    //   done(null, user);
-    // });
-  }
-));
+// passport.use(new FacebookStrategy({
+//     clientID: config.facebook_app_id,
+//     clientSecret: config.facebook_app_secret,
+//     callbackURL: config.facebook_callback_url
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     console.log(profile);
+//     // User.findOrCreate(..., function(err, user) {
+//     //   if (err) { return done(err); }
+//     //   done(null, user);
+//     // });
+//   }
+// ));
 
 
 
@@ -55,6 +54,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
+// Init passport
+app.use(passport.initialize());
+ app.use(passport.session());
+
 
 
 // ROUTES FOR OUR API
@@ -71,6 +74,7 @@ router.use(function(req, res, next) {
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
+app.use('/api', require('./src/controllers/auth'));
 app.use('/api/user', require('./src/controllers/user'));
 app.use('/api/habit', require('./src/controllers/habit'));
 
