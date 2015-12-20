@@ -41,10 +41,14 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
-// middleware to use for all requests
-router.use(function(req, res, next) {
-    // do logging
-    next(); // make sure we go to the next routes and don't stop here
+
+// Middleware to use for all requests
+app.use(function(req, res, next) {
+  // Enable CORS
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8081');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
 });
 
 
